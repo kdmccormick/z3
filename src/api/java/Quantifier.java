@@ -141,8 +141,9 @@ public class Quantifier extends BoolExpr
      **/
     public BoolExpr getBody()
     {
-        return new BoolExpr(getContext(), Native.getQuantifierBody(getContext()
-                .nCtx(), getNativeObject()));
+        return (BoolExpr) Expr.create(
+            getContext(),
+            Native.getQuantifierBody(getContext().nCtx(), getNativeObject()));
     }
 
     /**
