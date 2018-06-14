@@ -141,8 +141,13 @@ public class Quantifier extends BoolExpr
      **/
     public BoolExpr getBody()
     {
-        return new BoolExpr(getContext(), Native.getQuantifierBody(getContext()
-                .nCtx(), getNativeObject()));
+        Context ctx = getContext();
+        long obj = Native.getQuantifierBody(getContext()
+                .nCtx(), getNativeObject());
+        Z3_ast_kind k = Z3_ast_kind.fromInt(Native.getAstKind(ctx.nCtx(), obj));
+        return k == Z3_ast_kind.Z3_QUANTIFIER_AST ?
+               new Quantifier(ctx, obj) :
+               new BoolExpr(ctx, obj);
     }
 
     /**
